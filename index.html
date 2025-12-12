@@ -1,46 +1,122 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>NSixCool - Maintenance AC</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NSixCool • Maintenance AC Profesional</title>
+
+<style>
+    body{
+        margin:0;
+        font-family:Inter, sans-serif;
+        background:#0C1524;
+        color:white;
+    }
+    header{
+        padding:20px 40px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        background:rgba(255,255,255,0.03);
+        backdrop-filter:blur(8px);
+        border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+    .container{
+        max-width:1000px;
+        margin:40px auto;
+        padding:20px;
+    }
+    .card{
+        background:rgba(255,255,255,0.05);
+        padding:25px;
+        border-radius:14px;
+        margin-bottom:20px;
+    }
+    select, input{
+        width:100%;
+        padding:12px;
+        border-radius:10px;
+        border:1px solid rgba(255,255,255,0.08);
+        background:rgba(255,255,255,0.07);
+        color:white;
+        margin-bottom:14px;
+    }
+    button{
+        background:#14B8A6;
+        color:#041c1a;
+        padding:12px 18px;
+        border-radius:10px;
+        border:none;
+        cursor:pointer;
+        font-weight:bold;
+    }
+</style>
 </head>
 <body>
 
-<h2>Booking Layanan</h2>
+<header>
+    <h2>NSixCool</h2>
+    <a href="admin.html" style="color:#14B8A6;font-weight:bold;text-decoration:none">ADMIN</a>
+</header>
 
-<form id="formBooking">
-  <label>Nama</label><br>
-  <input id="nama" required><br><br>
+<div class="container">
 
-  <label>No HP</label><br>
-  <input id="hp" required><br><br>
+    <div class="card">
+        <h2>Booking Perawatan / Servis AC</h2>
+        <form id="form">
 
-  <label>Alamat</label><br>
-  <input id="alamat" required><br><br>
+            <input type="text" id="nama" placeholder="Nama" required>
+            <input type="text" id="hp" placeholder="Nomor HP" required>
+            <input type="text" id="alamat" placeholder="Alamat Lengkap" required>
 
-  <label>Jenis Layanan</label><br>
-  <select id="layanan"></select><br><br>
+            <select id="layanan"></select>
 
-  <button type="submit">Kirim</button>
-</form>
+            <button type="submit">Kirim Booking</button>
+        </form>
+    </div>
+
+</div>
 
 <script>
-async function loadLayanan(){
-  const r = await fetch("/api/layanan");
-  const j = await r.json();
-  const sel = document.getElementById("layanan");
-
-  sel.innerHTML = "";
-
-  j.layanan.forEach(l => {
-    let o = document.createElement("option");
-    o.value = l;
-    o.textContent = l;
-    sel.appendChild(o);
-  });
+// ---- INIT DEFAULT LAYANAN JIKA BELUM ADA ----
+if(!localStorage.getItem('layanan')){
+    localStorage.setItem('layanan', JSON.stringify([
+        "Cuci AC",
+        "Cuci AC + Freon",
+        "Bongkar Pasang AC",
+        "Tambah Freon",
+        "Perbaikan Bocor",
+        "Maintenance Total"
+    ]));
 }
 
+// ---- LOAD LAYANAN KE SELECT ----
+function loadLayanan(){
+    const data = JSON.parse(localStorage.getItem('layanan'));
+    const s = document.getElementById('layanan');
+    s.innerHTML = "";
+    data.forEach(v=>{
+        let op = document.createElement('option');
+        op.value = v;
+        op.textContent = v;
+        s.appendChild(op);
+    });
+}
 loadLayanan();
+
+// ---- SUBMIT BOOKING → BUKA WHATSAPP OTOMATIS ----
+document.getElementById("form").addEventListener("submit", (e)=>{
+    e.preventDefault();
+    let nama = nama.value;
+    let hp = hp.value;
+    let alamat = alamat.value;
+    let service = layanan.value;
+
+    let text = `Halo, saya ingin booking:\nNama: ${nama}\nHP: ${hp}\nAlamat: ${alamat}\nLayanan: ${service}`;
+    let wa = `https://wa.me/6285183317766?text=${encodeURIComponent(text)}`;
+
+    window.open(wa, "_blank");
+});
 </script>
 
 </body>
