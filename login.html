@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login Admin • NSixCool</title>
+<style>
+body{font-family:Inter,Arial;background:linear-gradient(180deg,#071024,#0f1724);color:#e6eef6;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
+.box{background:#0b1220;padding:28px;border-radius:12px;min-width:320px}
+label{display:block;color:#9aa4b8;margin-top:8px}
+input{width:100%;padding:10px;border-radius:8px;margin-top:6px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:inherit}
+.btn{margin-top:12px;padding:10px 12px;border-radius:8px;border:0;background:linear-gradient(90deg,#14b8a6,#06b6d4);color:#042022;font-weight:700}
+.err{color:#ff9aa2;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="box">
+  <h2>Login Admin</h2>
+  <div id="err" class="err"></div>
+  <label>Username<input id="user"></label>
+  <label>Password<input id="pass" type="password"></label>
+  <button class="btn" onclick="login()">Masuk</button>
+</div>
+<script>
+async function login(){
+  const user = document.getElementById('user').value;
+  const pass = document.getElementById('pass').value;
+  const res = await fetch('/api/login', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ username: user, password: pass })
+  });
+  const out = await res.json();
+  if(out.success){
+    // store plain flag (note: for production use proper auth)
+    localStorage.setItem('nsix_admin','1');
+    localStorage.setItem('nsix_admin_pass', pass); // used to auth update endpoint
+    window.location.href = '/admin.html';
+  }else{
+    document.getElementById('err').innerText = out.message || 'Login gagal';
+  }
+}
+</script>
+</body>
+</html>
