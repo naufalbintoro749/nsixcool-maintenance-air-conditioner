@@ -1,43 +1,40 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Login Admin • NSixCool</title>
-<style>
-body{font-family:Inter,Arial;background:linear-gradient(180deg,#071024,#0f1724);color:#e6eef6;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
-.box{background:#0b1220;padding:28px;border-radius:12px;min-width:320px}
-label{display:block;color:#9aa4b8;margin-top:8px}
-input{width:100%;padding:10px;border-radius:8px;margin-top:6px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:inherit}
-.btn{margin-top:12px;padding:10px 12px;border-radius:8px;border:0;background:linear-gradient(90deg,#14b8a6,#06b6d4);color:#042022;font-weight:700}
-.err{color:#ff9aa2;margin-top:8px}
-</style>
+  <title>Login Admin</title>
+  <style>
+    body{font-family:Arial;background:#0f1724;color:white;display:flex;justify-content:center;align-items:center;height:100vh;}
+    .box{background:#0b1220;padding:25px;border-radius:10px;width:300px;box-shadow:0 0 10px #000;}
+    input{width:100%;padding:10px;margin:10px 0;border-radius:6px;border:none;}
+    button{width:100%;padding:12px;background:#14b8a6;color:#002;border:none;border-radius:6px;font-weight:bold;cursor:pointer;}
+  </style>
 </head>
 <body>
-<div class="box">
-  <h2>Login Admin</h2>
-  <div id="err" class="err"></div>
-  <label>Username<input id="user"></label>
-  <label>Password<input id="pass" type="password"></label>
-  <button class="btn" onclick="login()">Masuk</button>
-</div>
+  <div class="box">
+    <h2>Login Admin</h2>
+    <input id="user" placeholder="Username">
+    <input id="pass" type="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="msg" style="color:red;"></p>
+  </div>
+
 <script>
 async function login(){
-  const user = document.getElementById('user').value;
-  const pass = document.getElementById('pass').value;
-  const res = await fetch('/api/login', {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ username: user, password: pass })
+  let res = await fetch("/api/login", {
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({
+      username:document.getElementById("user").value,
+      password:document.getElementById("pass").value
+    })
   });
-  const out = await res.json();
+
+  let out = await res.json();
+
   if(out.success){
-    // store plain flag (note: for production use proper auth)
-    localStorage.setItem('nsix_admin','1');
-    localStorage.setItem('nsix_admin_pass', pass); // used to auth update endpoint
-    window.location.href = '/admin.html';
-  }else{
-    document.getElementById('err').innerText = out.message || 'Login gagal';
+    location.href = "admin.html";
+  } else {
+    document.getElementById("msg").innerText = "Login salah!";
   }
 }
 </script>
