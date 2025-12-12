@@ -2,121 +2,70 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NSixCool • Maintenance AC Profesional</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NsixCool Air Conditioner</title>
 
 <style>
-    body{
-        margin:0;
-        font-family:Inter, sans-serif;
-        background:#0C1524;
-        color:white;
+    body { margin:0; font-family:Arial; background:#0d0d0d; color:white; }
+    header { padding:20px; text-align:center; background:#111; font-size:26px; font-weight:bold; }
+    .hero { padding:50px 20px; text-align:center; background:linear-gradient(135deg,#0d0d0d,#222); }
+    .hero h1 { font-size:40px; margin-bottom:10px; }
+    .hero p { font-size:18px; opacity:0.8; }
+
+    .container { max-width:900px; margin:auto; padding:20px; }
+
+    .layanan-card {
+        background:rgba(255,255,255,0.05); padding:20px; margin:10px 0;
+        border-radius:12px; border:1px solid rgba(255,255,255,0.15);
     }
-    header{
-        padding:20px 40px;
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        background:rgba(255,255,255,0.03);
-        backdrop-filter:blur(8px);
-        border-bottom:1px solid rgba(255,255,255,0.05);
-    }
-    .container{
-        max-width:1000px;
-        margin:40px auto;
-        padding:20px;
-    }
-    .card{
-        background:rgba(255,255,255,0.05);
-        padding:25px;
-        border-radius:14px;
-        margin-bottom:20px;
-    }
-    select, input{
-        width:100%;
-        padding:12px;
-        border-radius:10px;
-        border:1px solid rgba(255,255,255,0.08);
-        background:rgba(255,255,255,0.07);
-        color:white;
-        margin-bottom:14px;
-    }
-    button{
-        background:#14B8A6;
-        color:#041c1a;
-        padding:12px 18px;
-        border-radius:10px;
-        border:none;
-        cursor:pointer;
-        font-weight:bold;
+
+    .btn {
+        padding:12px 18px; background:#00aaff; color:white; border-radius:8px;
+        text-decoration:none; display:inline-block; margin-top:15px;
     }
 </style>
+
 </head>
 <body>
 
-<header>
-    <h2>NSixCool</h2>
-    <a href="admin.html" style="color:#14B8A6;font-weight:bold;text-decoration:none">ADMIN</a>
-</header>
+<header>NsixCool Air Conditioner</header>
+
+<section class="hero">
+    <h1>Service & Maintenance AC Profesional</h1>
+    <p>Jaga kenyamanan rumah & bisnis Anda dengan perawatan AC berkualitas.</p>
+    <p><b>Alamat:</b> Perumahan Bumi Kartika Dramaga Raya Blok F2 No.11, Ciherang, Dramaga, Kab. Bogor</p>
+
+    <a class="btn" href="https://wa.me/6285183317766?text=Halo%20saya%20ingin%20service%20AC">
+        Hubungi WhatsApp
+    </a>
+</section>
 
 <div class="container">
+    <h2>Daftar Layanan</h2>
+    <div id="listLayanan"></div>
 
-    <div class="card">
-        <h2>Booking Perawatan / Servis AC</h2>
-        <form id="form">
-
-            <input type="text" id="nama" placeholder="Nama" required>
-            <input type="text" id="hp" placeholder="Nomor HP" required>
-            <input type="text" id="alamat" placeholder="Alamat Lengkap" required>
-
-            <select id="layanan"></select>
-
-            <button type="submit">Kirim Booking</button>
-        </form>
-    </div>
-
+    <center><a class="btn" href="admin.html">Masuk Admin</a></center>
 </div>
 
 <script>
-// ---- INIT DEFAULT LAYANAN JIKA BELUM ADA ----
-if(!localStorage.getItem('layanan')){
-    localStorage.setItem('layanan', JSON.stringify([
-        "Cuci AC",
-        "Cuci AC + Freon",
-        "Bongkar Pasang AC",
-        "Tambah Freon",
-        "Perbaikan Bocor",
-        "Maintenance Total"
-    ]));
-}
+let layanan = JSON.parse(localStorage.getItem("layananNsix") || "[]");
 
-// ---- LOAD LAYANAN KE SELECT ----
-function loadLayanan(){
-    const data = JSON.parse(localStorage.getItem('layanan'));
-    const s = document.getElementById('layanan');
-    s.innerHTML = "";
-    data.forEach(v=>{
-        let op = document.createElement('option');
-        op.value = v;
-        op.textContent = v;
-        s.appendChild(op);
+function renderHome(){
+    let box = document.getElementById("listLayanan");
+    box.innerHTML = "";
+
+    layanan.forEach(l => {
+        box.innerHTML += `
+            <div class="layanan-card">
+                <h3>${l.nama}</h3>
+                <p>Type: <b>${l.jenis}</b></p>
+                <p>Harga: Rp ${l.harga}</p>
+            </div>
+        `;
     });
 }
-loadLayanan();
 
-// ---- SUBMIT BOOKING → BUKA WHATSAPP OTOMATIS ----
-document.getElementById("form").addEventListener("submit", (e)=>{
-    e.preventDefault();
-    let nama = nama.value;
-    let hp = hp.value;
-    let alamat = alamat.value;
-    let service = layanan.value;
-
-    let text = `Halo, saya ingin booking:\nNama: ${nama}\nHP: ${hp}\nAlamat: ${alamat}\nLayanan: ${service}`;
-    let wa = `https://wa.me/6285183317766?text=${encodeURIComponent(text)}`;
-
-    window.open(wa, "_blank");
-});
+renderHome();
 </script>
 
 </body>
