@@ -4,156 +4,219 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NSixCool • Maintenance AC Profesional</title>
-  <meta name="description" content="NSixCool - Jasa servis dan perawatan AC profesional, cepat, rapi, bergaransi. Hubungi 085183317766" />
+
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--muted:#94a3b8;--accent:#14b8a6;--glass:rgba(255,255,255,0.05)}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,Arial;background:#0f1724;color:#e6eef6}
+    :root{
+      --bg:#0e1522;
+      --card:#111a2b;
+      --muted:#94a3b8;
+      --accent:#1dd9c1;
+      --glass:rgba(255,255,255,0.05);
+    }
 
-    .container{max-width:1100px;margin:auto;padding:28px}
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:#eef3f8;
+      font-family: 'Inter', sans-serif;
+    }
 
-    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:30px}
-    .brand{display:flex;align-items:center;gap:14px}
-    .logo{width:56px;height:56px;border-radius:12px;background:#062033;
-      display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,0.5)}
-    nav a{color:var(--muted);text-decoration:none;margin-left:20px;font-weight:600}
+    a{text-decoration:none}
 
-    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px}
-    .card{background:var(--glass);border-radius:14px;padding:28px;border:1px solid rgba(255,255,255,0.06)}
+    .container{
+      max-width:1100px;
+      margin:auto;
+      padding:28px;
+    }
 
-    h2{font-size:34px;margin:10px 0}
-    .lead{color:var(--muted);line-height:1.6}
+    /* HEADER */
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:40px;
+    }
 
-    .features{display:flex;gap:12px;margin-top:16px}
-    .feat{flex:1;background:rgba(255,255,255,0.03);padding:16px;border-radius:10px;border:1px solid rgba(255,255,255,0.05)}
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
 
-    .btn{padding:12px 18px;border-radius:10px;font-weight:700;text-decoration:none;display:inline-block}
-    .btn-primary{background:linear-gradient(90deg,var(--accent),#06b6d4);color:#042022}
-    .btn-ghost{border:1px solid rgba(255,255,255,0.08);color:var(--muted)}
+    .logo{
+      width:56px;height:56px;
+      background:#0f2436;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 8px 25px rgba(0,0,0,0.5);
+    }
 
-    .field{display:flex;flex-direction:column;margin-bottom:14px}
-    input,select{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);
-      background:transparent;color:#fff}
+    nav a{
+      margin-left:18px;
+      color:var(--muted);
+      font-weight:600;
+    }
 
-    footer{margin-top:40px;color:var(--muted);display:flex;justify-content:space-between}
+    /* HERO */
+    .hero{
+      display:grid;
+      grid-template-columns:1fr 420px;
+      gap:28px;
+    }
+
+    .card{
+      background:var(--glass);
+      border-radius:14px;
+      padding:26px;
+      border:1px solid rgba(255,255,255,0.06);
+      backdrop-filter:blur(12px);
+    }
+
+    h2{
+      margin:10px 0;
+      font-size:34px;
+    }
+
+    .lead{
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .features{
+      display:flex;
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .feat{
+      flex:1;
+      padding:16px;
+      border-radius:12px;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.05);
+    }
+
+    .btn{
+      padding:12px 18px;
+      border-radius:10px;
+      display:inline-block;
+      font-weight:700;
+    }
+
+    .btn-primary{
+      background:linear-gradient(90deg,var(--accent),#0fbec4);
+      color:#06252b;
+    }
+
+    .btn-ghost{
+      border:1px solid rgba(255,255,255,0.06);
+      color:var(--muted);
+    }
+
+    /* FORM */
+    .field{
+      display:flex;
+      flex-direction:column;
+      margin-bottom:14px;
+    }
+
+    input, select{
+      padding:10px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.08);
+      background:rgba(255,255,255,0.02);
+      color:#fff;
+    }
+
+    /* ABOUT */
+    #about{
+      margin-top:50px;
+      padding:30px;
+      background:rgba(255,255,255,0.03);
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.05);
+      box-shadow:0 10px 40px rgba(0,0,0,0.3);
+      line-height:1.7;
+    }
+
+    #about h2{
+      font-size:30px;
+      margin-bottom:14px;
+    }
+
+    /* FOOTER */
+    footer{
+      margin-top:40px;
+      padding-top:30px;
+      display:flex;
+      justify-content:space-between;
+      color:var(--muted);
+      border-top:1px solid rgba(255,255,255,0.06);
+    }
+
+    @media(max-width:980px){
+      .hero{grid-template-columns:1fr;}
+    }
+
   </style>
 </head>
+
 <body>
 
 <div class="container">
 
+<!-- HEADER -->
 <header>
   <div class="brand">
     <div class="logo">
-      <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="white">
-        <path d="M12 2v20" stroke-width="1.4"/>
-        <path d="M5 7l14 10" stroke-width="1.4"/>
-        <path d="M19 7L5 17" stroke-width="1.4"/>
+      <svg width="32" height="32" stroke="white" fill="none" stroke-width="1.6">
+        <path d="M12 2v20"/>
+        <path d="M5 7l14 10"/>
+        <path d="M19 7L5 17"/>
       </svg>
     </div>
+
     <div>
       <h1 style="margin:0;font-size:22px">NSixCool</h1>
-      <div style="font-size:13px;color:var(--muted)">Servis & Perawatan AC Profesional</div>
+      <div style="font-size:13px;color:var(--muted)">Perawatan & Servis AC Profesional</div>
     </div>
   </div>
 
   <nav>
     <a href="#services">Layanan</a>
     <a href="#booking">Booking</a>
+    <a href="#about">About</a>
   </nav>
 </header>
 
+
+<!-- HERO -->
 <section class="hero">
 
+  <!-- TEXT -->
   <div class="card">
-    <div style="color:var(--accent);font-weight:700">Bikin Dingin Kembali — Rumah Lebih Nyaman</div>
+    <div style="color:var(--accent);font-weight:700">Solusi AC Paling Cepat & Rapi</div>
     <h2>Maintenance AC Profesional</h2>
 
     <p class="lead">
-      NSixCool siap membuat AC Anda kembali dingin. Mulai dari cuci AC, isi freon, perbaikan kebocoran,
-      perbaikan kompresor hingga instalasi AC baru. Teknisi bersertifikat & bergaransi.
+      Mulai dari cuci AC, isi freon, perbaikan, hingga pemasangan unit baru.  
+      Teknisi berpengalaman, alat lengkap, pengerjaan rapi & garansi resmi.
     </p>
 
     <div class="features" id="services">
-      <div class="feat"><h4>Servis Lengkap</h4><div class="muted">Cuci evaporator & perawatan rutin.</div></div>
-      <div class="feat"><h4>Perbaikan Cepat</h4><div class="muted">Kerusakan mendadak & bocor.</div></div>
-      <div class="feat"><h4>Garansi</h4><div class="muted">Garansi 30 hari.</div></div>
+      <div class="feat"><h4>Cuci & Servis</h4><div class="muted">Pembersihan menyeluruh</div></div>
+      <div class="feat"><h4>Perbaikan</h4><div class="muted">Bocor / tidak dingin</div></div>
+      <div class="feat"><h4>Instalasi</h4><div class="muted">Pasang AC baru</div></div>
     </div>
 
     <div style="margin-top:20px">
-      <a href="#booking" class="btn btn-primary">Pesan Sekarang</a>
+      <a href="#booking" class="btn btn-primary">Booking Sekarang</a>
       <a href="https://wa.me/6285183317766" class="btn btn-ghost">Chat WhatsApp</a>
     </div>
   </div>
 
-  <div class="card" id="booking">
-    <h3>Booking Cepat</h3>
 
-    <form onsubmit="sendWA(event)">
-      <div class="field">
-        <label>Nama</label>
-        <input id="nama" required>
-      </div>
-
-      <div class="field">
-        <label>No HP</label>
-        <input id="hp" required>
-      </div>
-
-      <div class="field">
-        <label>Alamat</label>
-        <input id="alamat" required>
-      </div>
-
-      <div class="field">
-        <label>Jenis Layanan</label>
-        <select id="layanan">
-          <option value="Servis & Cuci AC">Servis & Cuci AC</option>
-          <option value="Isi Freon">Isi Freon</option>
-          <option value="Perbaikan Kompresor">Perbaikan Kompresor</option>
-          <option value="Instalasi & Pasang AC">Instalasi & Pasang AC</option>
-        </select>
-      </div>
-
-      <button class="btn btn-primary" style="width:100%">Kirim ke WhatsApp</button>
-    </form>
-  </div>
-
-</section>
-
-<footer>
-  <div>
-    <strong>NSixCool</strong><br>
-    Perumahan Bumi Kartika Dramaga Raya Blok F2 No 11, Dramaga – Bogor
-  </div>
-
-  <div style="text-align:right">
-    <div><b>WhatsApp:</b> 0851-8331-7766</div>
-    <div>Email: info@nsixcool.example</div>
-  </div>
-</footer>
-
-</div>
-
-<script>
-function sendWA(e) {
-  e.preventDefault();
-
-  let nama = document.getElementById("nama").value;
-  let hp = document.getElementById("hp").value;
-  let alamat = document.getElementById("alamat").value;
-  let layanan = document.getElementById("layanan").value;
-
-  let pesan =
-    "Halo kak, saya ingin booking layanan AC:%0A" +
-    "Nama: " + nama + "%0A" +
-    "No HP: " + hp + "%0A" +
-    "Alamat: " + alamat + "%0A" +
-    "Layanan: " + layanan;
-
-  window.location.href = "https://wa.me/6285183317766?text=" + pesan;
-}
-</script>
-
-</body>
-</html>
+  <!-- BOOKING -->
