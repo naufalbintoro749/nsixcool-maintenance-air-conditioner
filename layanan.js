@@ -1,8 +1,6 @@
-import { readFileSync, existsSync } from "fs";
-
 export default function handler(req, res) {
   // Lokasi penyimpanan Vercel (runtime → /tmp)
-  const path = "/layanan.json";
+  const path = "/tmp/layanan.json";
 
   // Jika sudah ada data dari admin
   if (existsSync(path)) {
