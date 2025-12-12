@@ -2,118 +2,117 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin NSixCool</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin NsixCool</title>
 
 <style>
-body{
-    font-family:Inter, sans-serif;
-    background:#0A1220;
-    color:white;
-    padding:20px;
-}
-.card{
-    background:rgba(255,255,255,0.06);
-    padding:20px;
-    border-radius:14px;
-    max-width:600px;
-    margin:auto;
-}
-input{
-    width:100%;
-    padding:12px;
-    border-radius:10px;
-    margin-bottom:10px;
-    background:rgba(255,255,255,0.07);
-    border:none;
-    color:white;
-}
-button{
-    background:#14B8A6;
-    padding:10px 16px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:bold;
-}
-.list{
-    margin-top:15px;
-}
-.item{
-    padding:10px;
-    background:rgba(255,255,255,0.05);
-    border-radius:10px;
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:8px;
-}
-.del{
-    cursor:pointer;
-    color:#ff6b6b;
-    font-weight:bold;
-}
+    body { margin:0; font-family:Arial; background:#0d0d0d; color:white; }
+    header { padding:20px; text-align:center; background:#111; font-size:26px; }
+    #loginBox {
+        max-width:400px; margin:50px auto; padding:20px;
+        background:rgba(255,255,255,0.05); border-radius:12px;
+    }
+    #adminPanel { display:none; max-width:900px; margin:auto; padding:20px; }
+    input, select {
+        width:100%; padding:12px; border-radius:6px; border:none; margin:5px 0 15px;
+    }
+    button { padding:12px 18px; background:#00aaff; border:none; border-radius:8px; color:white; cursor:pointer; }
+    table {
+        width:100%; background:rgba(255,255,255,0.05); border-collapse:collapse; margin-top:20px;
+    }
+    th, td { padding:10px; border:1px solid rgba(255,255,255,0.2); }
 </style>
 
 </head>
 <body>
 
-<div class="card" id="loginBox">
-    <h2>Login Admin</h2>
-    <input type="password" id="pw" placeholder="Password Admin">
-    <button onclick="login()">Masuk</button>
+<header>Panel Admin NsixCool</header>
+
+<div id="loginBox">
+    <h3 style="text-align:center;">Login Admin</h3>
+
+    <input id="u" placeholder="Username" />
+    <input id="p" placeholder="Password" type="password" />
+
+    <button onclick="doLogin()">Login</button>
 </div>
 
-<div class="card" id="panel" style="display:none">
+<div id="adminPanel">
     <h2>Kelola Layanan</h2>
 
-    <input type="text" id="baru" placeholder="Tambah layanan...">
-    <button onclick="tambah()">Tambah</button>
+    <input id="nama" placeholder="Nama Layanan">
+    <select id="jenis">
+        <option value="Cuci AC">Cuci AC</option>
+        <option value="Service AC">Service AC</option>
+        <option value="Bongkar/Pasang AC">Bongkar/Pasang AC</option>
+        <option value="Isi Freon">Isi Freon</option>
+    </select>
+    <input id="harga" placeholder="Harga (Rp)">
 
-    <div class="list" id="list"></div>
+    <button onclick="addLayanan()">Tambah</button>
+
+    <table id="tabel"></table>
+
+    <button onclick="logout()" style="margin-top:20px;">Logout</button>
 </div>
 
 <script>
-function login(){
-    if(document.getElementById("pw").value === "101004"){
-        loginBox.style.display = "none";
-        panel.style.display = "block";
-        loadList();
-    }else{
-        alert("Password salah!");
-    }
+let layanan = JSON.parse(localStorage.getItem("layananNsix") || "[]");
+
+function save(){
+    localStorage.setItem("layananNsix", JSON.stringify(layanan));
 }
 
-function loadList(){
-    const arr = JSON.parse(localStorage.getItem('layanan'));
-    const box = document.getElementById('list');
-    box.innerHTML = "";
+function render(){
+    let t = document.getElementById("tabel");
+    t.innerHTML = `
+        <tr><th>Nama</th><th>Jenis</th><th>Harga</th><th>Aksi</th></tr>
+    `;
 
-    arr.forEach((v,i)=>{
-        box.innerHTML += `
-            <div class="item">
-                ${v}
-                <span class="del" onclick="hapus(${i})">Hapus</span>
-            </div>
+    layanan.forEach((l,i)=>{
+        t.innerHTML += `
+            <tr>
+                <td>${l.nama}</td>
+                <td>${l.jenis}</td>
+                <td>${l.harga}</td>
+                <td><button onclick="hapus(${i})">Hapus</button></td>
+            </tr>
         `;
     });
 }
 
-function tambah(){
-    let v = baru.value.trim();
-    if(!v) return alert("Isi dulu");
-    let arr = JSON.parse(localStorage.getItem('layanan'));
-    arr.push(v);
-    localStorage.setItem('layanan', JSON.stringify(arr));
-    baru.value = "";
-    loadList();
+function addLayanan(){
+    let n = document.getElementById("nama").value;
+    let j = document.getElementById("jenis").value;
+    let h = document.getElementById("harga").value;
+
+    if(!n || !h) return alert("Isi semua data!");
+
+    layanan.push({ nama:n, jenis:j, harga:h });
+    save();
+    render();
+
+    document.getElementById("nama").value="";
+    document.getElementById("harga").value="";
 }
 
 function hapus(i){
-    let arr = JSON.parse(localStorage.getItem('layanan'));
-    arr.splice(i,1);
-    localStorage.setItem('layanan', JSON.stringify(arr));
-    loadList();
+    layanan.splice(i,1);
+    save();
+    render();
 }
+
+function doLogin(){
+    if(document.getElementById("u").value==="admin" && document.getElementById("p").value==="101004"){
+        document.getElementById("loginBox").style.display="none";
+        document.getElementById("adminPanel").style.display="block";
+        render();
+    } else {
+        alert("Login salah!");
+    }
+}
+
+function logout(){ location.href="index.html"; }
 </script>
 
 </body>
