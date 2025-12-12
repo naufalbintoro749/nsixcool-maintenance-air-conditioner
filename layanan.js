@@ -2,7 +2,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 const PUBLIC_FILE = path.join(process.cwd(), 'public', 'layanan.json');
-const TMP_FILE = '/tmp/layanan.json';
+const TMP_FILE = '/layanan.json';
 
 export default async function handler(req, res) {
   if(req.method === 'GET'){
