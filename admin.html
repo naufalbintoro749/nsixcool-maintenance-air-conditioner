@@ -3,82 +3,73 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NSIXCOOL — Premium AC Maintenance</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<title>Admin — NSIXCOOL</title>
 
 <style>
-body{margin:0;font-family:Inter;background:#f8fbff;color:#0b2038}
-.container{width:90%;max-width:1100px;margin:auto;padding:40px 0}
-header{background:#fff;border-bottom:1px solid #eee}
-header .container{display:flex;justify-content:space-between;align-items:center}
-.btn{padding:10px 16px;border:none;border-radius:10px;font-weight:700;cursor:pointer}
-.btn-primary{background:#0b6ef6;color:#fff}
+body{margin:0;font-family:Inter;background:#f4f6fb}
+.container{width:90%;max-width:900px;margin:auto;padding:40px}
 .card{background:#fff;padding:20px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
-input,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:1px solid #ddd}
-.hero{display:grid;grid-template-columns:1fr 420px;gap:30px;align-items:center}
-footer{border-top:1px solid #eee;padding:20px;color:#5b6b85;margin-top:40px}
+input{width:100%;padding:12px;margin:10px 0;border-radius:10px;border:1px solid #ddd}
+button{padding:10px 16px;border:none;border-radius:10px;font-weight:700;background:#0b6ef6;color:#fff;cursor:pointer}
+.hidden{display:none}
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="container">
-    <h2>NSIXCOOL</h2>
-    <a href="admin.html" class="btn btn-primary">Admin</a>
-  </div>
-</header>
+<div class="container">
 
-<main class="container">
+<div id="loginBox" class="card">
+  <h2>Login Admin</h2>
+  <input id="user" placeholder="Username">
+  <input id="pass" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+</div>
 
-<section class="hero">
-  <div>
-    <h1>Service & Maintenance AC Profesional</h1>
-    <p>Cepat • Bersih • Bergaransi</p>
-  </div>
+<div id="adminBox" class="card hidden">
+  <h2>Data Booking</h2>
+  <button onclick="logout()">Logout</button>
+  <div id="data" style="margin-top:15px"></div>
+</div>
 
-  <div class="card">
-    <h3>Booking AC</h3>
-    <input id="name" placeholder="Nama">
-    <input id="phone" placeholder="No WhatsApp">
-    <select id="service">
-      <option>Cuci AC</option>
-      <option>Service AC</option>
-      <option>Perbaikan</option>
-      <option>Instalasi</option>
-    </select>
-    <button class="btn btn-primary" onclick="book()">Booking</button>
-  </div>
-</section>
-
-</main>
-
-<footer class="container">
-© <span id="year"></span> NSIXCOOL
-</footer>
+</div>
 
 <script>
-document.getElementById("year").textContent=new Date().getFullYear();
-const WA="6285172234749";
+const USER="admin";
+const PASS="nsixcool123";
 
-function book(){
-  const name=nameInput.value=name;
+if(localStorage.admin==="1") showAdmin();
+
+function login(){
+  if(user.value===USER && pass.value===PASS){
+    localStorage.admin="1";
+    showAdmin();
+  }else alert("Login salah");
 }
-</script>
 
-<script>
-function book(){
-  let name=document.getElementById("name").value;
-  let phone=document.getElementById("phone").value;
-  let service=document.getElementById("service").value;
-  if(!name||!phone) return alert("Lengkapi data");
+function showAdmin(){
+  loginBox.classList.add("hidden");
+  adminBox.classList.remove("hidden");
+  loadData();
+}
 
+function logout(){
+  localStorage.removeItem("admin");
+  location.reload();
+}
+
+function loadData(){
   let data=JSON.parse(localStorage.getItem("bookings")||"[]");
-  data.push({name,phone,service,time:new Date().toLocaleString()});
-  localStorage.setItem("bookings",JSON.stringify(data));
-
-  window.open(`https://wa.me/${WA}?text=Halo NSIXCOOL saya ${name} ingin ${service}`,'_blank');
+  document.getElementById("data").innerHTML=
+    data.length?data.map((d,i)=>`
+      <div style="border-bottom:1px solid #eee;padding:8px 0">
+        <b>#${i+1}</b><br>
+        Nama: ${d.name}<br>
+        WA: ${d.phone}<br>
+        Layanan: ${d.service}<br>
+        Waktu: ${d.time}
+      </div>
+    `).join(""):"Belum ada booking";
 }
 </script>
 
