@@ -2,53 +2,100 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>NSIXCOOL — Premium AC Maintenance</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
 <style>
-body{margin:0;font-family:Arial;background:#f7fbff;color:#0b2038}
-header{background:#0b6ef6;color:#fff;padding:20px}
-.container{max-width:1100px;margin:auto;padding:20px}
-.hero{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 10px 20px rgba(0,0,0,.08)}
-button{background:#0b6ef6;color:#fff;border:none;padding:12px;border-radius:8px;cursor:pointer}
-footer{background:#0b2038;color:#fff;padding:20px;margin-top:40px}
+:root{
+--blue:#0b6ef6;
+--light:#f6fbff;
+--dark:#07203b;
+--muted:#5b6b85;
+--radius:14px;
+--shadow:0 12px 30px rgba(0,0,0,.08);
+}
+body{margin:0;font-family:Inter;background:linear-gradient(#f8fbff,#fff);color:var(--dark)}
+.container{max-width:1100px;margin:auto;padding:40px 20px}
+header{position:sticky;top:0;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);border-bottom:1px solid #eaf1ff}
+.header-inner{display:flex;justify-content:space-between;align-items:center}
+.brand h1{margin:0;font-family:Playfair Display}
+.tagline{color:var(--muted);font-size:13px}
+
+.hero{display:grid;grid-template-columns:1fr 420px;gap:30px;align-items:center}
+.hero h2{font-family:Playfair Display;font-size:42px;margin:0}
+.hero span{color:var(--blue)}
+.lead{color:var(--muted);margin-top:12px}
+
+.card{background:var(--light);padding:20px;border-radius:var(--radius);box-shadow:var(--shadow)}
+input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #e1ebff;margin-bottom:10px}
+button{background:var(--blue);color:#fff;border:none;padding:12px;border-radius:10px;font-weight:700;cursor:pointer}
+
+.section{margin-top:60px}
+.services{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.service{background:#fff;padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.05)}
+
+footer{background:#07203b;color:#fff;margin-top:60px}
+footer p{margin:6px 0;font-size:14px}
+
+@media(max-width:900px){
+.hero{grid-template-columns:1fr}
+.services{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>NSIXCOOL</h1>
-  <p><b>Premium AC Maintenance — Bersih • Cepat • Profesional</b></p>
+  <div class="container header-inner">
+    <div class="brand">
+      <h1>NSIXCOOL</h1>
+      <div class="tagline">Premium AC Maintenance — Bersih • Cepat • Profesional</div>
+    </div>
+    <button onclick="openWA()">Booking</button>
+  </div>
 </header>
 
-<div class="container">
-  <section class="hero">
-    <div>
-      <h2>Layanan Service & Maintenance AC</h2>
-      <p>
-        NSIXCOOL melayani cuci AC, servis berkala, perbaikan,
-        dan instalasi AC rumah maupun kantor dengan teknisi berpengalaman.
-      </p>
-      <p><b>📍 Alamat:</b><br>
-      Perumahan Bumi Kartika Dramaga Raya Blok F2 No.11,  
-      Ciherang, Dramaga, Kabupaten Bogor, Jawa Barat</p>
-    </div>
+<section class="container hero">
+  <div>
+    <h2>Solusi <span>AC Sejuk</span> & Terawat</h2>
+    <p class="lead">
+      Layanan maintenance AC profesional untuk rumah & kantor.
+      Teknisi berpengalaman, harga transparan, dan hasil maksimal.
+    </p>
 
-    <div class="card">
-      <h3>Booking Cepat</h3>
-      <input id="nama" placeholder="Nama" style="width:100%;margin-bottom:10px">
-      <input id="wa" placeholder="No WhatsApp" style="width:100%;margin-bottom:10px">
-      <select id="layanan" style="width:100%;margin-bottom:10px">
-        <option>Cuci AC</option>
-        <option>Service AC</option>
-        <option>Perbaikan</option>
-        <option>Instalasi</option>
-      </select>
-      <button onclick="kirimWA()">Pesan Sekarang</button>
-    </div>
-  </section>
-</div>
+    <p class="lead">
+      📍 <b>Alamat:</b><br>
+      Perumahan Bumi Kartika Dramaga Raya Blok F2 No.11,<br>
+      Ciherang, Dramaga, Kabupaten Bogor, Jawa Barat
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Booking Cepat</h3>
+    <input id="nama" placeholder="Nama Lengkap">
+    <input id="wa" placeholder="No WhatsApp">
+    <select id="layanan">
+      <option>Cuci AC</option>
+      <option>Service AC</option>
+      <option>Perbaikan</option>
+      <option>Instalasi</option>
+    </select>
+    <button onclick="kirim()">Kirim ke WhatsApp</button>
+  </div>
+</section>
+
+<section class="container section">
+  <h3>Layanan Kami</h3>
+  <div class="services">
+    <div class="service">Cuci & Cleaning AC</div>
+    <div class="service">Service Berkala</div>
+    <div class="service">Perbaikan & Sparepart</div>
+    <div class="service">Instalasi Profesional</div>
+  </div>
+</section>
 
 <footer>
   <div class="container">
@@ -61,13 +108,11 @@ footer{background:#0b2038;color:#fff;padding:20px;margin-top:40px}
 </footer>
 
 <script>
-function kirimWA(){
-  let n = nama.value;
-  let w = wa.value;
-  let l = layanan.value;
-  let msg = `Halo NSIXCOOL, saya ${n}. Ingin ${l}. Nomor saya ${w}.`;
-  window.open(`https://wa.me/6285172234749?text=`+encodeURIComponent(msg));
+function kirim(){
+let m=`Halo NSIXCOOL, saya ${nama.value}. Ingin ${layanan.value}. WA saya ${wa.value}`;
+window.open("https://wa.me/6285172234749?text="+encodeURIComponent(m));
 }
+function openWA(){kirim()}
 </script>
 
 </body>
