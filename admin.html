@@ -3,55 +3,46 @@
 <head>
 <meta charset="utf-8">
 <title>Admin NSIXCOOL</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-body{font-family:Arial;background:#0b2038;color:#fff;margin:0}
-.login,.dashboard{max-width:400px;margin:80px auto;background:#fff;color:#000;padding:20px;border-radius:12px}
-input{width:100%;padding:10px;margin-bottom:10px}
-button{width:100%;padding:10px;background:#0b6ef6;color:#fff;border:none;border-radius:8px}
+body{margin:0;font-family:Inter;background:#f4f8ff}
+.card{max-width:420px;margin:100px auto;background:#fff;padding:30px;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.1)}
+input{width:100%;padding:12px;margin-bottom:12px;border-radius:10px;border:1px solid #ddd}
+button{width:100%;padding:12px;background:#0b6ef6;color:#fff;border:none;border-radius:10px;font-weight:700}
 .hidden{display:none}
 </style>
 </head>
 
 <body>
 
-<div id="login" class="login">
-  <h2>Login Admin</h2>
+<div id="login" class="card">
+  <h2>Admin Login</h2>
   <input id="user" placeholder="Username">
   <input id="pass" type="password" placeholder="Password">
   <button onclick="login()">Login</button>
 </div>
 
-<div id="dashboard" class="dashboard hidden">
+<div id="dash" class="card hidden">
   <h2>Dashboard Admin</h2>
-  <p>Selamat datang, Admin NSIXCOOL</p>
+  <p>Selamat datang Admin NSIXCOOL</p>
   <ul>
-    <li>📋 Data Order (dummy)</li>
-    <li>💳 Payment Status</li>
+    <li>📋 Order Masuk</li>
+    <li>💳 Status Payment</li>
     <li>👨‍🔧 Teknisi</li>
   </ul>
   <button onclick="logout()">Logout</button>
 </div>
 
 <script>
-const USER = "admin";
-const PASS = "admin123";
-
+const USER="admin";
+const PASS="admin123";
 function login(){
-  if(user.value===USER && pass.value===PASS){
-    loginDiv.style.display="none";
-    dashboard.style.display="block";
-  }else{
-    alert("Username atau Password salah");
-  }
+if(user.value===USER && pass.value===PASS){
+login.classList.add("hidden");
+dash.classList.remove("hidden");
+}else alert("Login salah");
 }
-
-function logout(){
-  location.reload();
-}
-
-const loginDiv = document.getElementById("login");
-const dashboard = document.getElementById("dashboard");
+function logout(){location.reload()}
 </script>
 
 </body>
