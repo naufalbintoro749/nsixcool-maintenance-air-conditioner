@@ -2,75 +2,56 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin — NSIXCOOL</title>
-
+<title>Admin NSIXCOOL</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body{margin:0;font-family:Inter;background:#f4f6fb}
-.container{width:90%;max-width:900px;margin:auto;padding:40px}
-.card{background:#fff;padding:20px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
-input{width:100%;padding:12px;margin:10px 0;border-radius:10px;border:1px solid #ddd}
-button{padding:10px 16px;border:none;border-radius:10px;font-weight:700;background:#0b6ef6;color:#fff;cursor:pointer}
+body{font-family:Arial;background:#0b2038;color:#fff;margin:0}
+.login,.dashboard{max-width:400px;margin:80px auto;background:#fff;color:#000;padding:20px;border-radius:12px}
+input{width:100%;padding:10px;margin-bottom:10px}
+button{width:100%;padding:10px;background:#0b6ef6;color:#fff;border:none;border-radius:8px}
 .hidden{display:none}
 </style>
 </head>
 
 <body>
 
-<div class="container">
-
-<div id="loginBox" class="card">
+<div id="login" class="login">
   <h2>Login Admin</h2>
   <input id="user" placeholder="Username">
   <input id="pass" type="password" placeholder="Password">
   <button onclick="login()">Login</button>
 </div>
 
-<div id="adminBox" class="card hidden">
-  <h2>Data Booking</h2>
+<div id="dashboard" class="dashboard hidden">
+  <h2>Dashboard Admin</h2>
+  <p>Selamat datang, Admin NSIXCOOL</p>
+  <ul>
+    <li>📋 Data Order (dummy)</li>
+    <li>💳 Payment Status</li>
+    <li>👨‍🔧 Teknisi</li>
+  </ul>
   <button onclick="logout()">Logout</button>
-  <div id="data" style="margin-top:15px"></div>
-</div>
-
 </div>
 
 <script>
-const USER="admin";
-const PASS="nsixcool123";
-
-if(localStorage.admin==="1") showAdmin();
+const USER = "admin";
+const PASS = "admin123";
 
 function login(){
   if(user.value===USER && pass.value===PASS){
-    localStorage.admin="1";
-    showAdmin();
-  }else alert("Login salah");
-}
-
-function showAdmin(){
-  loginBox.classList.add("hidden");
-  adminBox.classList.remove("hidden");
-  loadData();
+    loginDiv.style.display="none";
+    dashboard.style.display="block";
+  }else{
+    alert("Username atau Password salah");
+  }
 }
 
 function logout(){
-  localStorage.removeItem("admin");
   location.reload();
 }
 
-function loadData(){
-  let data=JSON.parse(localStorage.getItem("bookings")||"[]");
-  document.getElementById("data").innerHTML=
-    data.length?data.map((d,i)=>`
-      <div style="border-bottom:1px solid #eee;padding:8px 0">
-        <b>#${i+1}</b><br>
-        Nama: ${d.name}<br>
-        WA: ${d.phone}<br>
-        Layanan: ${d.service}<br>
-        Waktu: ${d.time}
-      </div>
-    `).join(""):"Belum ada booking";
-}
+const loginDiv = document.getElementById("login");
+const dashboard = document.getElementById("dashboard");
 </script>
 
 </body>
