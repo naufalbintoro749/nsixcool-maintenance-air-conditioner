@@ -1,44 +1,86 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NSixCool - Maintenance AC</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NSIXCOOL — Premium AC Maintenance</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+body{margin:0;font-family:Inter;background:#f8fbff;color:#0b2038}
+.container{width:90%;max-width:1100px;margin:auto;padding:40px 0}
+header{background:#fff;border-bottom:1px solid #eee}
+header .container{display:flex;justify-content:space-between;align-items:center}
+.btn{padding:10px 16px;border:none;border-radius:10px;font-weight:700;cursor:pointer}
+.btn-primary{background:#0b6ef6;color:#fff}
+.card{background:#fff;padding:20px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+input,select{width:100%;padding:12px;margin:8px 0;border-radius:10px;border:1px solid #ddd}
+.hero{display:grid;grid-template-columns:1fr 420px;gap:30px;align-items:center}
+footer{border-top:1px solid #eee;padding:20px;color:#5b6b85;margin-top:40px}
+</style>
 </head>
+
 <body>
-<header class="nav">
-  <div class="logo">NSixCool</div>
-  <nav>
-    <a href="#">Tentang</a>
-    <a href="#">Layanan</a>
-    <a href="#">Booking</a>
-  </nav>
+
+<header>
+  <div class="container">
+    <h2>NSIXCOOL</h2>
+    <a href="admin.html" class="btn btn-primary">Admin</a>
+  </div>
 </header>
 
-<section class="hero">
-  <h1>Maintenance AC Profesional<br>untuk Semua Merek</h1>
-  <p class="subtitle">Teknisi bersertifikat • Garansi 30 hari • Sparepart original • Pelayanan cepat dan rapi.</p>
+<main class="container">
 
-  <div class="cards">
-    <div class="card"><h3>Cuci AC</h3><p>Membersihkan evaporator & blower</p><span>Rp 70.000</span></div>
-    <div class="card"><h3>Isi Freon</h3><p>Freon R32, R410, R22</p><span>Rp 150.000</span></div>
-    <div class="card"><h3>Perbaikan AC</h3><p>AC panas / bocor / tidak dingin</p><span>Mulai Rp 120.000</span></div>
+<section class="hero">
+  <div>
+    <h1>Service & Maintenance AC Profesional</h1>
+    <p>Cepat • Bersih • Bergaransi</p>
   </div>
 
-  <div class="booking">
-    <h2>Booking via WhatsApp</h2>
-    <input placeholder="Nama" />
-    <input placeholder="No HP" />
-    <input placeholder="Alamat" />
-    <select>
+  <div class="card">
+    <h3>Booking AC</h3>
+    <input id="name" placeholder="Nama">
+    <input id="phone" placeholder="No WhatsApp">
+    <select id="service">
       <option>Cuci AC</option>
-      <option>Isi Freon</option>
-      <option>Perbaikan AC</option>
+      <option>Service AC</option>
+      <option>Perbaikan</option>
+      <option>Instalasi</option>
     </select>
-    <button>Kirim Booking via WA</button>
+    <button class="btn btn-primary" onclick="book()">Booking</button>
   </div>
 </section>
+
+</main>
+
+<footer class="container">
+© <span id="year"></span> NSIXCOOL
+</footer>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+const WA="6285172234749";
+
+function book(){
+  const name=nameInput.value=name;
+}
+</script>
+
+<script>
+function book(){
+  let name=document.getElementById("name").value;
+  let phone=document.getElementById("phone").value;
+  let service=document.getElementById("service").value;
+  if(!name||!phone) return alert("Lengkapi data");
+
+  let data=JSON.parse(localStorage.getItem("bookings")||"[]");
+  data.push({name,phone,service,time:new Date().toLocaleString()});
+  localStorage.setItem("bookings",JSON.stringify(data));
+
+  window.open(`https://wa.me/${WA}?text=Halo NSIXCOOL saya ${name} ingin ${service}`,'_blank');
+}
+</script>
 
 </body>
 </html>
