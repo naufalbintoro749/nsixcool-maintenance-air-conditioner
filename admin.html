@@ -1,49 +1,305 @@
+
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<title>Admin NSIXCOOL</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-body{margin:0;font-family:Inter;background:#f4f8ff}
-.card{max-width:420px;margin:100px auto;background:#fff;padding:30px;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.1)}
-input{width:100%;padding:12px;margin-bottom:12px;border-radius:10px;border:1px solid #ddd}
-button{width:100%;padding:12px;background:#0b6ef6;color:#fff;border:none;border-radius:10px;font-weight:700}
-.hidden{display:none}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NSIXCOOL Admin — Edit Halaman</title>
+  <meta name="description" content="Halaman admin untuk edit konten NSIXCOOL." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    /* =========================
+       NSIXCOOL Admin — White & Blue Theme
+       ========================= */
+    :root{
+      --bg:#ffffff;
+      --panel:#f6fbff;
+      --muted:#5b6b85;
+      --blue-600:#0b6ef6;
+      --blue-400:#5fb0ff;
+      --accent:linear-gradient(90deg,var(--blue-400),var(--blue-600));
+      --glass:rgba(11,110,246,0.06);
+      --radius:14px;
+      --maxw:1100px;
+      --shadow: 0 10px 30px rgba(12,41,93,0.08);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto; color:#0b2038; background: linear-gradient(180deg,#f8fbff 0%, #ffffff 100%);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; line-height:1.45;
+    }
+    .container{width:90%;max-width:var(--maxw);margin:0 auto;padding:36px 0}
+
+    /* Header */
+    header.site-header{position:sticky;top:0;background:rgba(255,255,255,0.7);backdrop-filter:blur(6px);border-bottom:1px solid rgba(11,34,62,0.06);z-index:40}
+    .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo-mark{width:56px;height:56px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-family:'Playfair Display',serif;font-size:22px;box-shadow:var(--shadow)}
+    .brand h1{margin:0;font-family:'Playfair Display',serif;font-size:20px}
+    .brand .tag{font-size:12px;color:var(--muted);margin-top:2px}
+
+    /* Login */
+    .login-form{display:flex;flex-direction:column;gap:10px;max-width:400px;margin:0 auto;padding:40px 0}
+    input,textarea,select{padding:12px;border-radius:10px;border:1px solid rgba(11,34,62,0.06);background:white;font-weight:600}
+    .btn-primary{background:var(--blue-600);color:white;padding:10px 16px;border-radius:10px;border:none;cursor:pointer;font-weight:700;box-shadow:0 8px 24px rgba(11,110,246,0.14)}
+    .btn-outline{background:transparent;border:1px solid rgba(11,34,246,0.12);padding:9px 14px;border-radius:10px;color:var(--blue-600);font-weight:700}
+
+    /* Edit Sections */
+    .edit-section{margin-bottom:40px;padding:20px;border-radius:var(--radius);background:var(--panel);box-shadow:var(--shadow);border:1px solid rgba(11,34,62,0.04)}
+    .edit-section h3{margin-top:0;color:var(--blue-600)}
+    .edit-form{display:flex;flex-direction:column;gap:10px}
+    .preview{margin-top:20px;padding:10px;border-radius:10px;background:#f0f7ff;border:1px solid rgba(11,34,62,0.06)}
+    .preview h4{margin:0 0 10px}
+
+    /* Footer */
+    .site-footer{padding:18px 0;border-top:1px solid rgba(11,34,62,0.04);margin-top:36px;color:var(--muted)}
+
+    /* Responsive */
+    @media(max-width:980px){
+      .container{width:95%}
+    }
+  </style>
 </head>
-
 <body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="logo-mark">N</div>
+        <div>
+          <h1>nsixcool</h1>
+          <div class="tag muted">Admin Panel</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <button id="logoutBtn" class="btn-outline">Logout</button>
+      </nav>
+    </div>
+  </header>
 
-<div id="login" class="card">
-  <h2>Admin Login</h2>
-  <input id="user" placeholder="Username">
-  <input id="pass" type="password" placeholder="Password">
-  <button onclick="login()">Login</button>
-</div>
+  <main class="container">
+    <div id="loginSection" class="login-form">
+      <h2>Login Admin</h2>
+      <input id="password" type="password" placeholder="Masukkan password" />
+      <button id="loginBtn" class="btn-primary">Login</button>
+    </div>
 
-<div id="dash" class="card hidden">
-  <h2>Dashboard Admin</h2>
-  <p>Selamat datang Admin NSIXCOOL</p>
-  <ul>
-    <li>📋 Order Masuk</li>
-    <li>💳 Status Payment</li>
-    <li>👨‍🔧 Teknisi</li>
-  </ul>
-  <button onclick="logout()">Logout</button>
-</div>
+    <div id="adminPanel" style="display:none;">
+      <h2>Edit Halaman NSIXCOOL</h2>
+      <p class="muted">Edit bagian per bagian. Klik "Simpan" untuk menyimpan ke localStorage. Halaman utama akan memuat data ini.</p>
 
-<script>
-const USER="admin";
-const PASS="admin123";
-function login(){
-if(user.value===USER && pass.value===PASS){
-login.classList.add("hidden");
-dash.classList.remove("hidden");
-}else alert("Login salah");
-}
-function logout(){location.reload()}
-</script>
+      <!-- Header Edit -->
+      <div class="edit-section">
+        <h3>Edit Header</h3>
+        <div class="edit-form">
+          <label>Nama Brand:</label>
+          <input id="brandName" type="text" />
+          <label>Tagline:</label>
+          <input id="brandTag" type="text" />
+          <label>URL Logo:</label>
+          <input id="logoSrc" type="text" />
+          <button id="saveHeader" class="btn-primary">Simpan Header</button>
+          <button id="resetHeader" class="btn-outline">Reset ke Default</button>
+        </div>
+        <div class="preview">
+          <h4>Preview Header:</h4>
+          <div id="headerPreview"></div>
+        </div>
+      </div>
 
-</body>
-</html>
+      <!-- Hero Edit -->
+      <div class="edit-section">
+        <h3>Edit Hero</h3>
+        <div class="edit-form">
+          <label>Judul Hero:</label>
+          <textarea id="heroTitle" rows="2"></textarea>
+          <label>Deskripsi Hero:</label>
+          <textarea id="heroDesc" rows="3"></textarea>
+          <button id="saveHero" class="btn-primary">Simpan Hero</button>
+          <button id="resetHero" class="btn-outline">Reset ke Default</button>
+        </div>
+        <div class="preview">
+          <h4>Preview Hero:</h4>
+          <div id="heroPreview"></div>
+        </div>
+      </div>
+
+      <!-- Services Edit -->
+      <div class="edit-section">
+        <h3>Edit Layanan</h3>
+        <div class="edit-form">
+          <label>Layanan 1 - Judul:</label>
+          <input id="service1Title" type="text" />
+          <label>Layanan 1 - Deskripsi:</label>
+          <textarea id="service1Desc" rows="2"></textarea>
+          <label>Layanan 2 - Judul:</label>
+          <input id="service2Title" type="text" />
+          <label>Layanan 2 - Deskripsi:</label>
+          <textarea id="service2Desc" rows="2"></textarea>
+          <label>Layanan 3 - Judul:</label>
+          <input id="service3Title" type="text" />
+          <label>Layanan 3 - Deskripsi:</label>
+          <textarea id="service3Desc" rows="2"></textarea>
+          <label>Layanan 4 - Judul:</label>
+          <input id="service4Title" type="text" />
+          <label>Layanan 4 - Deskripsi:</label>
+          <textarea id="service4Desc" rows="2"></textarea>
+          <button id="saveServices" class="btn-primary">Simpan Layanan</button>
+          <button id="resetServices" class="btn-outline">Reset ke Default</button>
+        </div>
+        <div class="preview">
+          <h4>Preview Layanan:</h4>
+          <div id="servicesPreview"></div>
+        </div>
+      </div>
+
+      <!-- About Edit -->
+      <div class="edit-section">
+        <h3>Edit Tentang</h3>
+        <div class="edit-form">
+          <label>Judul Tentang:</label>
+          <input id="aboutTitle" type="text" />
+          <label>Deskripsi:</label>
+          <textarea id="aboutDesc" rows="3"></textarea>
+          <label>List (HTML):</label>
+          <textarea id="aboutList" rows="3"></textarea>
+          <button id="saveAbout" class="btn-primary">Simpan Tentang</button>
+          <button id="resetAbout" class="btn-outline">Reset ke Default</button>
+        </div>
+        <div class="preview">
+          <h4>Preview Tentang:</h4>
+          <div id="aboutPreview"></div>
+        </div>
+      </div>
+
+      <!-- Stats Edit -->
+      <div class="edit-section">
+        <h3>Edit Statistik</h3>
+        <div class="edit-form">
+          <label>Stat 1 - Nilai:</label>
+          <input id="stat1Value" type="text" />
+          <label>Stat 1 - Label:</label>
+          <input id="stat1Label" type="text" />
+          <label>Stat 2 - Nilai:</label>
+          <input id="stat2Value" type="text" />
+          <label>Stat 2 - Label:</label>
+          <input id="stat2Label" type="text" />
+          <label>Stat 3 - Nilai:</label>
+          <input id="stat3Value" type="text" />
+          <label>Stat 3 - Label:</label>
+          <input id="stat3Label" type="text" />
+          <button id="saveStats" class="btn-primary">Simpan Statistik</button>
+          <button id="resetStats" class="btn-outline">Reset ke Default</button>
+        </div>
+        <div class="preview">
+          <h4>Preview Statistik:</h4>
+          <div id="statsPreview"></div>
+        </div>
+      </div>
+
+      <!-- Gallery Edit -->
+      <div class="edit-section">
+        <h3>Edit Galeri</h3>
+        <div class="edit-form">
+          <label>Gambar 1 URL:</label>
+          <input id="gallery1" type="text" />
+          <label>Gambar 2 URL:</label>
+          <input id="gallery2" type="text" />
+          <label>Gambar 3 URL:</label>
+          <input id="gallery3" type="text" />
+          <label>Gambar 4 URL:</label>
+          <input id="gallery4" type="text" />
+          <button id="saveGallery" class="btn-primary">Simpan Galeri</button>
+          <button id="resetGallery" class="btn-outline">Reset ke Default</button>
+        </div>
+        <div class="preview">
+          <h4>Preview Galeri:</h4>
+          <div id="galleryPreview"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer container">
+    <div>&copy; <span id="year"></span> NSIXCOOL Admin — All Rights Reserved.</div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const PASSWORD = 'admin123'; // Ubah password di sini
+    const loginSection = document.getElementById('loginSection');
+    const adminPanel = document.getElementById('adminPanel');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const passwordInput = document.getElementById('password');
+
+    // Login
+    loginBtn.addEventListener('click', () => {
+      if (passwordInput.value === PASSWORD) {
+        loginSection.style.display = 'none';
+        adminPanel.style.display = 'block';
+        loadAllData();
+      } else {
+        alert('Password salah!');
+      }
+    });
+
+    // Logout
+    logoutBtn.addEventListener('click', () => {
+      adminPanel.style.display = 'none';
+      loginSection.style.display = 'flex';
+      passwordInput.value = '';
+    });
+
+    // Load data from localStorage
+    function loadAllData() {
+      // Header
+      document.getElementById('brandName').value = localStorage.getItem('brandName') || 'nsixcool';
+      document.getElementById('brandTag').value = localStorage.getItem('brandTag') || 'Premium AC Maintenance';
+      document.getElementById('logoSrc').value = localStorage.getItem('logoSrc') || 'nsixlogo.jpg';
+
+      // Hero
+      document.getElementById('heroTitle').value = localStorage.getItem('heroTitle') || 'Rasakan <span>kesegaran</span> — layanan AC profesional dan cepat';
+      document.getElementById('heroDesc').value = localStorage.getItem('heroDesc') || 'NSIXCOOL menghadirkan maintenance AC dengan standar kebersihan dan performa terbaik. Teknisi berpengalaman, harga transparan.';
+
+      // Services
+      const services = JSON.parse(localStorage.getItem('services') || JSON.stringify([
+        { title: 'Cleaning & Cuci AC', desc: 'Pembersihan menyeluruh indoor & outdoor, desinfeksi, dan pengecekan kinerja.' },
+        { title: 'Servis Berkala', desc: 'Perawatan preventif agar AC awet & hemat listrik.' },
+        { title: 'Perbaikan & Sparepart', desc: 'Diagnosa cepat, penggantian sparepart resmi, garansi kerja.' },
+        { title: 'Instalasi Profesional', desc: 'Pemasangan rapi & aman untuk rumah atau kantor.' }
+      ]));
+      document.getElementById('service1Title').value = services[0].title;
+      document.getElementById('service1Desc').value = services[0].desc;
+      document.getElementById('service2Title').value = services[1].title;
+      document.getElementById('service2Desc').value = services[1].desc;
+      document.getElementById('service3Title').value = services[2].title;
+      document.getElementById('service3Desc').value = services[2].desc;
+      document.getElementById('service4Title').value = services[3].title;
+      document.getElementById('service4Desc').value = services[3].desc;
+
+      // About
+      document.getElementById('aboutTitle').value = localStorage.getItem('aboutTitle') || 'Kenapa Memilih NSIXCOOL?';
+      document.getElementById('aboutDesc').value = localStorage.getItem('aboutDesc') || 'Kami mengutamakan kualitas, tepat waktu, dan transparansi. Semua teknisi tersertifikasi dan menggunakan perlengkapan aman untuk keluarga Anda.';
+      document.getElementById('aboutList').value = localStorage.getItem('aboutList') || '<li>Teknisi bersertifikat & berpengalaman</li><li>Standard kebersihan & desinfeksi</li><li>Layanan cepat & garansi 30 hari</li>';
+
+      // Stats
+      const stats = JSON.parse(localStorage.getItem('stats') || JSON.stringify([
+        { value: '12.4k+', label: 'Unit terlayani' },
+        { value: '4.9', label: 'Rating pelanggan' },
+        { value: '30 Hari', label: 'Garansi kerja' }
+      ]));
+      document.getElementById('stat1Value').value = stats[0].value;
+      document.getElementById('stat1Label').value = stats[0].label;
+      document.getElementById('stat2Value').value = stats[1].value;
+      document.getElementById('stat2Label').value = stats[1].label;
+      document.getElementById('stat3Value').value = stats[2].value;
+      document.getElementById('stat3Label').value = stats[2].label;
+
+      // Gallery
+      const gallery = JSON.parse(localStorage.getItem('gallery') || JSON.stringify([
+        'https://images.pexels.com/photos/3964707/pexels-photo-3964707.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+        'https://images.pexels.com/photos/3964706/pexels-photo-3964706.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
