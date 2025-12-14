@@ -2,18 +2,57 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
+<title>Admin NSixCool</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Admin</title>
-<link rel="stylesheet" href="style.css">
+<style>
+body{
+  margin:0;font-family:Inter;background:#020617;color:white;
+  display:flex;align-items:center;justify-content:center;height:100vh
+}
+.box{
+  background:#020617;padding:30px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.08);width:320px
+}
+input,button{
+  width:100%;padding:12px;margin-top:10px;
+  border-radius:10px;border:none
+}
+button{
+  background:#22d3ee;font-weight:800
+}
+.panel{display:none}
+</style>
 </head>
-<body class="admin-body">
-<header class="admin-nav">Dashboard Admin</header>
-<div class="admin-container">
-  <h2>Data Booking</h2>
-  <table>
-    <tr><th>Nama</th><th>HP</th><th>Alamat</th><th>Layanan</th></tr>
-    <tr><td>-</td><td>-</td><td>-</td><td>-</td></tr>
-  </table>
+<body>
+
+<div class="box" id="login">
+  <h3>Login Admin</h3>
+  <input id="user" placeholder="Username">
+  <input id="pass" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
 </div>
+
+<div class="box panel" id="panel">
+  <h3>Admin NSixCool</h3>
+  <p>✔ Website aktif</p>
+  <p>✔ Booking via WhatsApp</p>
+  <p>✔ Harga & layanan statis</p>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<script>
+function login(){
+  if(user.value=="admin" && pass.value=="101004"){
+    login.style.display="none";
+    panel.style.display="block";
+  }else{
+    alert("Login salah");
+  }
+}
+function logout(){
+  location.reload();
+}
+</script>
+
 </body>
 </html>
